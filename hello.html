@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>简单计算器</title>
+        
+        <style type="text/css">
+        	*{margin: 0px;padding: 0px;}
+			button{height: 100%;width: 100%;font-size: 30px;}
+			input{height: 100%;width: 100%;font-size: 30px;}
+        </style>
+		<script type="text/javascript">
+			/*
+			 * 目前实现了正常相加，计算一次结果后直接点击=号的操作，输入第一个数字后直接点+ =；
+			 * 待解决问题为计算一次结果后点击+出现的问题
+			 * 
+			 */
+			var num1="",num2="",num3=""; //num1用户输入第一个数字，num2用户输入第二个数字，num3记录计算结果
+			var a = true; //true为用户还未输入num1，false为已经输入了num1
+			function add(val){
+				//1. 用户点击数字
+				if(!isNaN(val)){
+					//1.判断是否输入了第一个数字
+					if(a){
+						if(num3 != ""){num1="",num2="",num3="";}
+						num1 += val;
+						document.getElementById("result").value = num1;
+					}else{
+						//2.则是第二个数字
+						num2 += val;
+						num3 = "";
+						document.getElementById("result").value = num1 + "+" + num2;
+					}
+				//2. 用户点击+
+				}else if(val == "+"){
+					//1.用户已经输入了第一个数字点击+，则把a设置为false
+					if(a){
+						a = false;
+						document.getElementById("result").value += "+";
+					//2.用户在上次输出结果后直接点击+
+					}else if(num1 != "" && num2 != "" && num3 == ""){
+						num3 = Number(num1) +  Number(num2);
+						document.getElementById("result").value += "=" + num3;
+					//3.用户输入了num1和num2后直接点击+
+					}else if(num1 != "" && num2 != ""  && num3 == ""){
+						num3 = Number(num1) +  Number(num2);
+						document.getElementById("result").value += "=" + num3;
+						a = true;
+					}else if(num1 != "" && num2 != "" && num3 != ""){
+						document.getElementById("result").value = num3 + "+";
+						num1 = num3;
+						num2 = "";
+						a = false;
+					}
+				//3. 用户点击=
+				}else{
+					//1.已经输入了num1和num2，则正常计算结果
+					if(num1 != "" && num2 != "" && num3 == ""){
+						num3 = Number(num1) +  Number(num2);
+						document.getElementById("result").value += "=" + num3;
+						a = true;
+					//2.在已经计算了一次加法后，直接点击=，则把上次计算结果+num2
+					}else if(num1 != "" && num2 != "" && num3 != ""){
+						num1 = num3;
+						num3 = Number(num1) +  Number(num2);
+						document.getElementById("result").value = num1 + "+" + num2 + "=" + num3;
+						a = true;
+					//3.输入了第一个数字，然后直接点击=，则结果为num3=num1+num1
+					}else if(num1 != "" && num2 == "" && a == false){
+						num2 = num1;
+						num3 = Number(num1) +  Number(num2);
+						document.getElementById("result").value = num1 + "+" + num2 + "=" + num3;
+						a = true;
+					}
+				}
+			}
+		</script>
+    </head>
+    <body>
+		<table border="1" width="500px" height="500px">
+			<tr>
+				<td colspan="4"><input type="text" id="result" value=""></td>
+			</tr>
+			<tr>
+				<td><button onclick="add(1)">1</button></td>
+				<td><button onclick="add(2)">2</button></td>
+				<td><button onclick="add(3)">3</button></td>
+				<td rowspan="2"><button onclick="add('+')">+</button></td>
+			</tr>
+			<tr>
+				<td><button onclick="add(4)">4</button></td>
+				<td><button onclick="add(5)">5</button></td>
+				<td><button onclick="add(6)">6</button></td>
+			</tr>
+			<tr>
+				<td><button onclick="add(7)">7</button></td>
+				<td><button onclick="add(8)">8</button></td>
+				<td><button onclick="add(9)">9</button></td>
+				<td><button onclick="add('=')">=</button></td>
+			</tr>
+		</table>
+    </body>
+</html>
