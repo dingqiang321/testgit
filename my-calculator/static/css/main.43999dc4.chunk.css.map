@@ -1,0 +1,1 @@
+{"version":3,"sources":["style.css"],"names":[],"mappings":"AAAA,EAAE,QAAW,CAAC,SAAa,CAE3B,aAAM,WAAY,CAAC,UAAW,CAAC,cAAgB","file":"main.43999dc4.chunk.css","sourcesContent":["*{margin: 0px;padding: 0px;}\r\nbutton{height: 100%;width: 100%;font-size: 30px;}\r\ninput{height: 100%;width: 100%;font-size: 30px;}"]}
